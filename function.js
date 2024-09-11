@@ -18,24 +18,32 @@ function updateTimer() {
     timer.innerHTML = formattedTime;
 }
 
-let interval;
+let interval = null;
 function startTimer() {
-    interval = setInterval(() => {
-        timeLeft--;
-        updateTimer();
-        if(timeLeft === 0){
-            clearInterval(interval);
-            alert('time is up');
-            timeLeft = 1500;
+
+    if (interval !== null) {
+        return;
+    }else {
+        interval = setInterval(() => {
+            timeLeft--;
             updateTimer();
-        }
-    },1000);
+            if(timeLeft === 0){
+                clearInterval(interval);
+                alert('time is up');
+                timeLeft = 1500;
+                updateTimer();
+            }
+        },1000);
+    }
+    
 }
 function stopTimer() {
     clearInterval(interval);
+    interval = null;
 }
 function resetTimer() {
     clearInterval(interval);
+    interval = null;
     timeLeft = 1500;
     updateTimer();
 }
